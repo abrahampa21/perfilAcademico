@@ -1,0 +1,1 @@
+//Aquí irá código JS relacionado a index.html
