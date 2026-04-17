@@ -1,1 +1,110 @@
 /*Aquí irán los estilos CSS relacionado a index.html*/
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  background: linear-gradient(to bottom, #5f7e98 0%, #3e5f7d 50%, #0f2744 100%);
+}
+
+form {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+    width: 360px;
+  border-radius: 15px;
+  padding: 1.5rem 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+form .contenedor-campos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.2rem;
+}
+
+form img {
+  width: 140px;
+  height: auto;
+}
+
+form .campo-contenedor {
+  position: relative;
+}
+
+.campo-contenedor input {
+  height: 40px;
+  background-color: #eef3f7;
+  border: 1px solid #cfdce7;
+  width: 100%;
+  font-size: 15px;
+  padding: 0 10px;
+  color: #2a3d66;
+  border-radius: 9px;
+}
+
+.campo-contenedor i {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 15px;
+}
+
+
+#recuperar-contraseña {
+  display: none;
+}
+
+#registro {
+  display: none;
+}
+
+
+.contenedor-opciones{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-size: 15px;
+}
+
+.contenedor-opciones span{
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    color: #154674;
+}
+
+.contenedor-opciones span:hover{
+    text-decoration: underline;
+}
+
+.contenedor-opciones .crear-cuenta{
+    text-align: center;
+}
+
+#recuperar-contraseña .recuperar-btn{
+    background-color: #0f2744;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+}

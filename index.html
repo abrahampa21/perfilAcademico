@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/ites.png" />
+    <link rel="stylesheet" href="assets/index.css" />
     <script
       src="https://kit.fontawesome.com/e522357059.js"
       crossorigin="anonymous"
@@ -10,40 +12,47 @@
     <title>Portal del estudiante</title>
   </head>
   <body>
-    <!--Ingreso-->
+    <!--Componente de ingreso-->
     <form action="" id="ingreso">
       <h1>Ingreso al portal</h1>
-      <div class="usuario campo-contenedor">
-        <input
-          type="text"
-          name="matricula"
-          placeholder="Introduce tu matricula"
-          required
-        />
-        <i class="fa-solid fa-user"></i>
+      <img src="img/ites.png" alt="Logo-ites" />
+      <div class="contenedor-campos">
+        <div class="usuario campo-contenedor">
+          <input
+            type="text"
+            name="matricula"
+            placeholder="Introduce tu matricula"
+            required
+          />
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="contrasena campo-contenedor">
+          <input
+            type="password"
+            name="contrasena"
+            id="ingreso-contrasena"
+            placeholder="Introduce tu contraseña"
+            required
+          />
+          <i class="fa-regular fa-eye-slash"></i>
+        </div>
       </div>
-      <div class="contrasena campo-contenedor">
-        <input
-          type="password"
-          name="contrasena"
-          id="ingreso-contrasena"
-          placeholder="Introduce tu contraseña"
-          required
-        />
-        <i class="fa-regular fa-eye-slash"></i>
-      </div>
-      <span class="forgot-pass" onclick="revealRecoverPass()"
-        >Olvidé mi contraseña</span
-      >
-      <div class="crear-cuenta">
-        <p>
-          ¿Aún no te has registrado?
-          <span>Crea tu cuenta para acceder al portal del alumno</span>
-        </p>
+      <div class="contenedor-opciones">
+        <span class="forgot-pass" onclick="revealRecoverPass()"
+          >Olvidé mi contraseña</span
+        >
+        <div class="crear-cuenta">
+          <p>
+            ¿Aún no te has registrado?
+            <span href=""
+              >Crea tu cuenta para acceder al portal del alumno</span
+            >
+          </p>
+        </div>
       </div>
     </form>
 
-    <!--Registro-->
+    <!--Componente de registro-->
     <form action="" id="registro">
       <i
         id="regresar-icono"
@@ -102,8 +111,13 @@
           </select>
         </div>
         <div class="matricula campo-contenedor">
-            <input type="text" id="matricula" name="matricula" placeholder="Introduce tu matrícula">
-            <i class="fa-solid fa-id-badge"></i>
+          <input
+            type="text"
+            id="matricula"
+            name="matricula"
+            placeholder="Introduce tu matrícula"
+          />
+          <i class="fa-solid fa-id-badge"></i>
         </div>
         <div class="email campo-contenedor">
           <input
@@ -125,18 +139,21 @@
           <i class="fa-solid fa-map"></i>
         </div>
         <div class="numero-telefonico campo-contenedor">
-            <input type="text" id="numero-telefonico" name="numero" placeholder="Introduce tu número de celular">
+          <input
+            type="text"
+            id="numero-telefonico"
+            name="numero"
+            placeholder="Introduce tu número de celular"
+          />
           <i class="fa-solid fa-mobile-screen"></i>
         </div>
       </div>
     </form>
 
-    <!--Recuperar contraseña-->
+    <!--Componente de recuperar contraseña-->
     <form
       action=""
       method="post"
-      autocomplete="on"
-      class="recuperar-contraseña"
       id="recuperar-contraseña"
     >
       <i
@@ -146,8 +163,8 @@
       ></i>
       <h2>Recuperar contraseña</h2>
       <p>Introduce los siguientes datos</p>
-      <div class="campos">
-        <div class="email campos-recuperar">
+      <div class="contenedor-campos">
+        <div class="email campo-contenedor">
           <input
             type="text"
             name="email-recuperar"
@@ -156,7 +173,7 @@
           />
           <i class="fa-solid fa-envelope"></i>
         </div>
-        <div class="contraseña campos-recuperar">
+        <div class="contraseña campo-contenedor">
           <input
             type="password"
             name="contraseña-recuperar"
@@ -167,7 +184,7 @@
           <i class="fa-regular fa-eye-slash"></i>
         </div>
         <p class="mensaje-contrasena"></p>
-        <button type="submit" name="recuperar-btn">Enviar</button>
+        <button type="submit" class="recuperar-btn" name="recuperar-btn">Enviar</button>
       </div>
     </form>
   </body>
