@@ -16,6 +16,19 @@ body {
   background: linear-gradient(to bottom, #5f7e98 0%, #3e5f7d 50%, #0f2744 100%);
 }
 
+
+#recuperar-contraseña {
+  display: none;
+}
+
+#ingreso{
+  display: flex;
+}
+
+#registro {
+  display: none;
+}
+
 form {
   background-color: #fff;
   display: flex;
@@ -23,7 +36,7 @@ form {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-    width: 360px;
+    width: 390px;
   border-radius: 15px;
   padding: 1.5rem 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -65,23 +78,13 @@ form .campo-contenedor {
   font-size: 15px;
 }
 
-
-#recuperar-contraseña {
-  display: none;
-}
-
-#registro {
-  display: none;
-}
-
-
 .contenedor-opciones{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .contenedor-opciones span{
@@ -98,7 +101,7 @@ form .campo-contenedor {
     text-align: center;
 }
 
-#recuperar-contraseña .recuperar-btn{
+form .recuperar-btn, form .registrar-btn{
     background-color: #0f2744;
     color: #fff;
     border: none;
@@ -107,4 +110,45 @@ form .campo-contenedor {
     padding: 10px 0;
     cursor: pointer;
     border-radius: 8px;
+    transition: 0.3 ease-in-out;
+}
+
+
+/*Registro*/
+#registro .apellidos{
+  display: flex;
+  gap: 1rem;
+}
+
+#regresar-icono{
+  margin-right: auto;
+  font-size: 1.4rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#registro h1{
+  margin-top: -2rem;
+}
+
+/*Recuperar contraseña*/
+#recuperar-contraseña .introduce-datos{
+  margin-right: auto;
+  margin-bottom: -1.3rem;
+}
+
+.fa-eye-slash{
+  cursor: pointer;
+}
+
+.validacion-contraseña{
+  display: none;
+}
+
+#registro .validacion-contraseña{
+  margin-top: -1rem;
+}
+
+#recuperar-contraseña .validacion-contraseña{
+  margin-top: -2rem;
 }

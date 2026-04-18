@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="img/ites.png" />
-    <link rel="stylesheet" href="assets/index.css" />
+    <link rel="stylesheet" href="assets/css/index.css" />
     <script
       src="https://kit.fontawesome.com/e522357059.js"
       crossorigin="anonymous"
@@ -34,17 +34,22 @@
             placeholder="Introduce tu contraseña"
             required
           />
-          <i class="fa-regular fa-eye-slash"></i>
+          <i
+            class="fa-regular fa-eye-slash"
+            onclick="revelarContraseña(this)"
+          ></i>
         </div>
       </div>
       <div class="contenedor-opciones">
-        <span class="forgot-pass" onclick="revealRecoverPass()"
+        <span
+          class="forgot-pass"
+          onclick="mostrarComponente(recuperarContraseña)"
           >Olvidé mi contraseña</span
         >
         <div class="crear-cuenta">
           <p>
             ¿Aún no te has registrado?
-            <span href=""
+            <span onclick="mostrarComponente(registro)"
               >Crea tu cuenta para acceder al portal del alumno</span
             >
           </p>
@@ -58,6 +63,7 @@
         id="regresar-icono"
         class="arrow fa-solid fa-arrow-left"
         title="Regresar"
+        onclick="mostrarComponente(ingreso)"
       ></i>
       <h1>¡Regístrate!</h1>
       <div class="contenedor-campos">
@@ -78,7 +84,7 @@
               type="text"
               name="apellidoP"
               id="apellidoP"
-              placeholder="Introduce tu apellido paterno"
+              placeholder="Apellido paterno"
               required
             />
             <i class="fa-solid fa-user-tie"></i>
@@ -88,7 +94,7 @@
               type="text"
               name="apellidoM"
               id="apellidoM"
-              placeholder="introduce tu apellido materno"
+              placeholder="Apellido Materno"
               required
             />
             <i class="fa-solid fa-user-nurse"></i>
@@ -129,6 +135,21 @@
 
           <i class="fa-solid fa-envelope"></i>
         </div>
+        <div class="contraseña campo-contenedor">
+          <input
+            type="password"
+            id="contraseña-registro"
+            name="contraseña"
+            placeholder="Introduce una contraseña"
+
+          />
+          <i
+            class="fa-solid fa-eye-slash"
+            onclick="revelarContraseña(this)"
+          ></i>
+        </div>
+          <p class="validacion-contraseña"></p>
+
         <div class="direccion-fisica campo-contenedor">
           <input
             type="text"
@@ -147,22 +168,22 @@
           />
           <i class="fa-solid fa-mobile-screen"></i>
         </div>
+        <button type="submit" class="registrar-btn" name="registrar-btn">
+          Registrar
+        </button>
       </div>
     </form>
 
     <!--Componente de recuperar contraseña-->
-    <form
-      action=""
-      method="post"
-      id="recuperar-contraseña"
-    >
+    <form action="" method="post" id="recuperar-contraseña">
       <i
         id="regresar-icono"
         class="arrow fa-solid fa-arrow-left"
         title="Regresar"
+        onclick="mostrarComponente(ingreso)"
       ></i>
       <h2>Recuperar contraseña</h2>
-      <p>Introduce los siguientes datos</p>
+      <p class="introduce-datos">Introduce los siguientes datos:</p>
       <div class="contenedor-campos">
         <div class="email campo-contenedor">
           <input
@@ -181,11 +202,19 @@
             placeholder="Escribe la nueva contraseña"
             required
           />
-          <i class="fa-regular fa-eye-slash"></i>
+          <i
+            class="fa-regular fa-eye-slash"
+            onclick="revelarContraseña(this)"
+          ></i>
         </div>
         <p class="mensaje-contrasena"></p>
-        <button type="submit" class="recuperar-btn" name="recuperar-btn">Enviar</button>
+        <p class="validacion-contraseña"></p>
+        <button type="submit" class="recuperar-btn" name="recuperar-btn">
+          Enviar
+        </button>
       </div>
     </form>
+
+    <script src="assets/js/index.js"></script>
   </body>
 </html>
