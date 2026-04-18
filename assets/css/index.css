@@ -127,14 +127,33 @@ form .recuperar-btn, form .registrar-btn{
   font-weight: bold;
 }
 
+#registro .contenedor-campos{
+  gap: 15px;
+}
+
 #registro h1{
   margin-top: -2rem;
+}
+
+#registro select{
+    height: 35px;
+  background-color: #eef3f7;
+  border: 1px solid #cfdce7;
+  width: 100%;
+  font-size: 15px;
+  padding: 0 10px;
+  color: #2a3d66;
+  border-radius: 9px;
 }
 
 /*Recuperar contraseña*/
 #recuperar-contraseña .introduce-datos{
   margin-right: auto;
   margin-bottom: -1.3rem;
+}
+
+#recuperar-contraseña .contenedor-campos{
+  gap: 12px;
 }
 
 .fa-eye-slash{

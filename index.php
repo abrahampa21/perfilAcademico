@@ -36,6 +36,7 @@
           />
           <i
             class="fa-regular fa-eye-slash"
+            title="Mostrar Contraseña"
             onclick="revelarContraseña(this)"
           ></i>
         </div>
@@ -102,7 +103,7 @@
         </div>
         <div class="carrera campo-contenedor">
           <select name="carreras" id="carreras" title="carreras">
-            <option value="">--Selecciona tu carrera---</option>
+            <option value="">---Selecciona tu carrera---</option>
             <option value="programación">Programación y Webmaster</option>
             <option value="sistemas-computacionales">
               Sistemas Computacionales Administrativos
@@ -141,6 +142,7 @@
             id="contraseña-registro"
             name="contraseña"
             placeholder="Introduce una contraseña"
+            title="Mostrar Contraseña"
 
           />
           <i
@@ -201,6 +203,7 @@
             id="contraseña-recuperar"
             placeholder="Escribe la nueva contraseña"
             required
+            title="Mostrar Contraseña"
           />
           <i
             class="fa-regular fa-eye-slash"
