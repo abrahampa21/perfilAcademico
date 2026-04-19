@@ -1,13 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/ites.png" />
-    <link rel="stylesheet" href="../assets/css/datosGenerales.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../img/ites.png" />
+    <link rel="stylesheet" href="../assets/css/datosGenerales.css" />
     <title>Datos Generales</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <main class="contenedor">
+
+        <!--Encabezado con avatar y nombre-->
+      <div class="tarjeta-perfil">
+        <div class="encabezado-perfil">
+          <div class="avatar">JP</div>
+          <div>
+            <p class="nombre-alumno">Juan Pérez</p>
+            <p class="matricula-alumno">Matrícula: 12345</p>
+          </div>
+        </div>
+
+        <!--Secciones-->
+        <div class="cuerpo-perfil">
+          <!--Información Personal-->
+          <div class="bloque-seccion">
+            <p class="titulo-seccion">Información personal</p>
+            <div class="cuadricula-campos">
+              <div class="campo">
+                <p class="etiqueta-campo">Nombre(s)</p>
+                <p class="valor-campo">Juan</p>
+              </div>
+              <div class="campo">
+                <p class="etiqueta-campo">Matrícula</p>
+                <p class="valor-campo">12345</p>
+              </div>
+              <div class="campo">
+                <p class="etiqueta-campo">Apellido paterno</p>
+                <p class="valor-campo">Pérez</p>
+              </div>
+              <div class="campo">
+                <p class="etiqueta-campo">Apellido materno</p>
+                <p class="valor-campo vacio">No registrado</p>
+              </div>
+            </div>
+          </div>
+
+          <!--Contacto-->
+          <div class="bloque-seccion">
+            <p class="titulo-seccion">Contacto</p>
+            <div class="cuadricula-campos">
+              <div class="campo ancho-completo">
+                <p class="etiqueta-campo">Correo electrónico</p>
+                <p class="valor-campo vacio">No registrado</p>
+              </div>
+              <div class="campo">
+                <p class="etiqueta-campo">Número de celular</p>
+                <p class="valor-campo vacio">No registrado</p>
+              </div>
+              <div class="campo">
+                <p class="etiqueta-campo">Dirección física</p>
+                <p class="valor-campo vacio">No registrada</p>
+              </div>
+            </div>
+          </div>
+
+          <!--Académico-->
+          <div class="bloque-seccion">
+            <p class="titulo-seccion">Académico</p>
+            <div class="cuadricula-campos">
+              <div class="campo ancho-completo">
+                <p class="etiqueta-campo">Licenciatura</p>
+                <p class="valor-campo vacio">No registrada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
