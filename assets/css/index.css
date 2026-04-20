@@ -100,7 +100,7 @@ form .campo-contenedor {
     text-align: center;
 }
 
-form .recuperar-btn, form .registrar-btn{
+form .recuperar-btn, form .registrar-btn, form .ingresar-btn{
     background-color: #0f2744;
     color: #fff;
     border: none;
@@ -168,5 +168,5 @@ form .recuperar-btn, form .registrar-btn{
 }
 
 #recuperar-contraseña .validacion-contraseña{
-  margin-top: -2rem;
+  margin-top: -1rem;
 }
