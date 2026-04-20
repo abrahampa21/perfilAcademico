@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="img/ites.png" />
+    <link rel="stylesheet" href="assets/css/portal.css">
     <title>Portal del alumno</title>
   </head>
   <body>
@@ -11,7 +12,7 @@
     <header>
       <nav>
         <div class="titulo">
-          <img src="" class="logo" alt="Logo" />
+          <img src="img/ites.png" class="logo" alt="Logo" />
           <h1>Portal del Alumno</h1>
         </div>
         <div class="toggle" id="toggle">
@@ -26,13 +27,13 @@
         <!--Menú responsive-->
         <div class="menu" id="menu">
           <i class="fa-solid fa-address-card"
-            ><a href="portalAlumno/datosPersonales.php">Datos Personales</a></i
+            ><a href="components/datosGenerales.html">Datos Personales</a></i
           >
           <i class="fa-solid fa-calendar-days"
-            ><a href="portalAlumno/horario.php">Materias cursadas</a></i
+            ><a href="components/materias.html">Materias cursadas</a></i
           >
           <i class="fa-solid fa-pen"
-            ><a href="portalAlumno/asistencia.php">Calificaciones</a></i
+            ><a href="components/calificaciones.html">Calificaciones</a></i
           >
         </div>
       </nav>
@@ -91,5 +92,6 @@
         </div>
       </section>
     </main>
+    <script src="assets/js/portal.js"></script>
   </body>
 </html>
