@@ -1,3 +1,11 @@
+<?php
+require_once("src/conexion.php");
+
+$consulta = $conexion->prepare("SELECT name,apellido_paterno,apellido_matero FROM alumnos");
+$consulta->execute();
+$resultado = $consulta->get_result();
+
+?>
 <!doctype html>
 <html lang="en">
   <head>

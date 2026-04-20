@@ -18,7 +18,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- HEADER Y NAV --- */
+/*HEADER Y NAV*/
 header {
   width: 100%;
   background-color: #ffffff;
@@ -42,6 +42,7 @@ nav {
 .titulo {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   flex-shrink: 0;
 }

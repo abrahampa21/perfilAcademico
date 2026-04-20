@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+  font-family: "Plus Jakarta Sans", sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #5f7e98 0%, #3e5f7d 45%, #0f2744 100%);
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 780px;
+  padding: 0 1rem;
+}
+
+
+.tarjeta-perfil {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.encabezado-perfil {
+  background: linear-gradient(135deg, #0f2744 0%, #1e3f6a 100%);
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.nombre-alumno {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.matricula-alumno {
+  font-size: 0.8rem;
+  color: rgba(200, 220, 240, 0.85);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cuerpo-perfil {
+  padding: 1.75rem 2rem;
+}
+
+.titulo-seccion {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #51606e;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.tabla-wrapper {
+  border: 1px solid #edf1f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-materias {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-materias thead tr {
+  background: #f7f9fc;
+}
+
+.tabla-materias th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #8698a8;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.tabla-materias td {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #1e3354;
+  padding: 11px 16px;
+  border-bottom: 1px solid #edf1f5;
+  background: #ffffff;
+  transition: background 0.15s;
+}
+
+.tabla-materias tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-materias tbody tr:hover td {
+  background: #f7f9fc;
+}
+
+.creditos-num {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e3354;
+}
+
+.badge-periodo {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #e8f0f8;
+  color: #1e3f6a;
+  letter-spacing: 0.03em;
+}
+
+.regresar-btn {
+  background-color: #fff;
+  color: #000;
+  position: fixed;
+  left: 2rem;
+  top: 2rem;
+  font-size: 30px;
+  padding: 14px 1.2rem;
+  border-radius: 100%;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .cuerpo-perfil {
+    padding: 1.25rem 1rem;
+  }
+  .encabezado-perfil {
+    padding: 1.25rem 1rem;
+  }
+}
