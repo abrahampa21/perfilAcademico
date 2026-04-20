@@ -26,155 +26,63 @@ function validar_contraseña($contraseña)
     return true;
 }
 
-// Inicializar variables de mensajes
-$mensajeusuarioexiste = "";
-$mensajeadmin = "";
-$mensajeine = "";
-$mensajeusuario = "";
-$mensajevendedor = "";
-$mensajecontraseña = "";
-$mensajeresultado = "";
 
-if (isset($_POST["ingresar"])) {
-    $usuario = $_POST['usuario'];
-    $password = $_POST['contraseña'];
-    $token    = $_POST['token'];
+if (isset($_POST["ingreso"])) {
+    $matricula = $_POST['matricula'];
+    $password = $_POST['contrasena'];
     $password_encriptada = sha1($password);
 
-    // Administrador
-    $stmt_admin = $conexion->prepare("SELECT usuario FROM administrador WHERE usuario = ? AND password = ? AND token = ? LIMIT 1");
-    $stmt_admin->bind_param("sss", $usuario, $password_encriptada, $token);
-    $stmt_admin->execute();
-    $resultado_admin = $stmt_admin->get_result();
-
-    if ($resultado_admin && $resultado_admin->num_rows > 0) {
-        $row = $resultado_admin->fetch_assoc();
-        $_SESSION['usuarioAdmin'] = $row['usuario'];
-        header("Location: panelAdmin.php");
-        exit();
-    }
-
-    // Vendedor
-    $stmt_vendedor = $conexion->prepare("SELECT idVendedor, usuario FROM vendedor WHERE usuario = ? AND password = ? LIMIT 1");
-    $stmt_vendedor->bind_param("ss", $usuario, $password_encriptada);
+    
+    $stmt_vendedor = $conexion->prepare("SELECT matricula, contrasena FROM alumnos WHERE matricula = ? AND contrasena = ? LIMIT 1");
+    $stmt_vendedor->bind_param("ss", $matricula, $password_encriptada);
     $stmt_vendedor->execute();
     $resultado_vendedor = $stmt_vendedor->get_result();
-
-    if ($resultado_vendedor && $resultado_vendedor->num_rows > 0) {
-        $row = $resultado_vendedor->fetch_assoc();
-        $_SESSION['usuarioVendedor'] = $row['usuario'];
-        $_SESSION['idVendedor'] = $row['idVendedor'];
-        header("Location: panelVendedor.php");
-        exit();
-    } else {
-        $mensajeresultado = "error";
-    }
+ 
 }
 
-// Registro para administrador
-if (isset($_POST["registrar-admin"])) {
-    $nombre = $_POST['nombre'];
-    $correo = $_POST['email'];
-    $usuario = $_POST['usuario'];
-    $password = $_POST['contraseña'];
-
-    if (!validar_contraseña($password)) {
-        $mensajeadmin = "contraseña-invalida";
-    } else {
-        $password_encriptada = sha1($password);
-
-        $stmt_verificar = $conexion->prepare("SELECT usuario FROM administrador WHERE usuario = ? LIMIT 1");
-        $stmt_verificar->bind_param("s", $usuario);
-        $stmt_verificar->execute();
-        $resultado_verificar = $stmt_verificar->get_result();
-
-        if ($resultado_verificar && $resultado_verificar->num_rows > 0) {
-            $mensajeusuarioexiste = "error";
-        } else {
-            $stmt_insert = $conexion->prepare("INSERT INTO administrador (usuario, nombreCompleto, password, email) VALUES (?, ?, ?, ?)");
-            $stmt_insert->bind_param("ssss", $usuario, $nombre, $password_encriptada, $correo);
-            if ($stmt_insert->execute()) {
-                $mensajeadmin = "exito";
-            } else {
-                $mensajeadmin = "error";
-            }
-        }
-    }
-}
-
-// Registro del vendedor
-if (isset($_POST["registrar-vendedor"])) {
+// Registro del estudiante
+if (isset($_POST["registro"])) {
     // Recoge datos del formulario...
-    $nombre = $_POST['nombre-vendedor'];
-    $apellidoP = $_POST['apellidoP-vendedor'];
-    $apellidoM = $_POST['apellidoM-vendedor'];
-    $correo = $_POST['email-vendedor'];
-    $usuario = $_POST['usuario-vendedor'];
-    $password = $_POST['contraseña-vendedor'];
-    $numeroCel = $_POST['noCelular-vendedor'];
-    $numeroRef = $_POST['noReferencia-vendedor'];
+    $nombre = $_POST['nombre'];
+    $apellidoP = $_POST['apellidoP'];
+    $apellidoM = $_POST['apellidoM'];
+    $carrera = $_POST['carreras'];
+    $matricula = $_POST['matricula'];
+    $correo = $_POST['email'];
+    $direccion = $_POST['direccion'];
+    $password = $_POST['contraseña-registro'];
+    $numeroTel = $_POST['numero-telefonico'];
 
     if (!validar_contraseña($password)) {
         $mensajevendedor = "contraseña-invalida";
     } else {
         $password_encriptada = sha1($password);
 
-        // Procesar INE (igual que antes)
-        if (isset($_FILES['ine-vendedor']) && $_FILES['ine-vendedor']['error'] === 0) {
-            $ine = file_get_contents($_FILES['ine-vendedor']['tmp_name']);
-        } else {
-            $mensajeine = "error-foto";
-        }
+          $stmt_verificar = $conexion->prepare("SELECT nombre, apellido_paterno, apellido_materno FROM alumnos WHERE nombre = ? AND apellido_paterno = ? AND apellido_materno = ? LIMIT 1");
+          $stmt_verificar->bind_param("sss", $nombre, $apellidoP, $apellidoM);
+          $stmt_verificar->execute();
+          $resultado_verificar = $stmt_verificar->get_result();
 
-        // Procesar video para moverlo a la carpeta uploads/videos/
-        $video_ruta = null;
-        if (isset($_FILES['video']) && $_FILES['video']['error'] === 0) {
-            $nombreArchivo = basename($_FILES['video']['name']);
-            $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
+          if ($resultado_verificar && $resultado_verificar->num_rows > 0) {
+              $mensajeusuario = "error";
+          } else {
+              $stmt_insert = $conexion->prepare("INSERT INTO alumnos(nombre, apellido_paterno, apellido_materno, matricula, correo, contrasena, carrera, direccion, celular) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            // Validar extensión si quieres (mp4, avi, etc)
-            $ext_permitidas = ['mp4', 'avi', 'mov', 'wmv', 'mkv'];
-            if (in_array(strtolower($extension), $ext_permitidas)) {
-                $nuevoNombre = uniqid('video_') . '.' . $extension;
-                $rutaDestino = __DIR__ . '/uploads/videos/' . $nuevoNombre;
+              $stmt_insert->bind_param("sssssssss", $nombre, $apellidoP, $apellidoM, $matricula, $correo, $password_encriptada, $carrera, $direccion, $numeroTel);
 
-                if (move_uploaded_file($_FILES['video']['tmp_name'], $rutaDestino)) {
-                    $video_ruta = 'uploads/videos/' . $nuevoNombre; // Ruta relativa para guardar en DB
-                } else {
-                    $mensajevideo = "error-subida-video";
-                }
-            } else {
-                $mensajevideo = "extension-no-permitida";
-            }
-        }
-
-        if ($mensajeine !== "error-foto" && !isset($mensajevideo)) {
-            $stmt_verificar = $conexion->prepare("SELECT usuario FROM vendedor WHERE usuario = ? LIMIT 1");
-            $stmt_verificar->bind_param("s", $usuario);
-            $stmt_verificar->execute();
-            $resultado_verificar = $stmt_verificar->get_result();
-
-            if ($resultado_verificar && $resultado_verificar->num_rows > 0) {
-                $mensajeusuario = "error";
-            } else {
-                // Insertar datos con ruta de video
-                $stmt_insert = $conexion->prepare("INSERT INTO vendedor(usuario, nombre, apellidoP, apellidoM, email, password, fotoINE, noCelular, noReferencia, video) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-                $stmt_insert->bind_param("ssssssssss", $usuario, $nombre, $apellidoP, $apellidoM, $correo, $password_encriptada, $ine, $numeroCel, $numeroRef, $video_ruta);
-
-                if ($stmt_insert->execute()) {
-                    $mensajevendedor = "exito";
-                } else {
-                    $mensajevendedor = "error";
-                }
-            }
-        }
+              if ($stmt_insert->execute()) {
+                  $mensajevendedor = "exito";
+              } else {
+                  $mensajevendedor = "error";
+              }
+          }
+        
     }
 }
 
 
 // Recuperar contraseña
-if (isset($_POST["recuperar-btn"])) {
+if (isset($_POST["recuperar-contraseña"])) {
     $email = $_POST['email-recuperar'];
     $contraseñaNueva = $_POST['contraseña-recuperar'];
 
@@ -183,22 +91,13 @@ if (isset($_POST["recuperar-btn"])) {
     } else {
         $contraseñaNuevaEncriptada = sha1($contraseñaNueva);
 
-        $stmt_admin = $conexion->prepare("SELECT * FROM administrador WHERE email = ? LIMIT 1");
-        $stmt_admin->bind_param("s", $email);
-        $stmt_admin->execute();
-        $resultadoAdmin = $stmt_admin->get_result();
-
-        $stmt_vendedor = $conexion->prepare("SELECT * FROM vendedor WHERE email = ? LIMIT 1");
+        $stmt_vendedor = $conexion->prepare("SELECT * FROM alumnos WHERE correo = ? LIMIT 1");
         $stmt_vendedor->bind_param("s", $email);
         $stmt_vendedor->execute();
         $resultadoVendedor = $stmt_vendedor->get_result();
 
-        if ($resultadoAdmin && $resultadoAdmin->num_rows > 0) {
-            $stmt_update = $conexion->prepare("UPDATE administrador SET password = ? WHERE email = ?");
-            $stmt_update->bind_param("ss", $contraseñaNuevaEncriptada, $email);
-            $mensajecontraseña = $stmt_update->execute() ? "exito" : "error";
-        } elseif ($resultadoVendedor && $resultadoVendedor->num_rows > 0) {
-            $stmt_update = $conexion->prepare("UPDATE vendedor SET password = ? WHERE email = ?");
+        if ($resultadoVendedor && $resultadoVendedor->num_rows > 0) {
+            $stmt_update = $conexion->prepare("UPDATE alumnos SET password = ? WHERE correo = ?");
             $stmt_update->bind_param("ss", $contraseñaNuevaEncriptada, $email);
             $mensajecontraseña = $stmt_update->execute() ? "exito" : "error";
         } else {
