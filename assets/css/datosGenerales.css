@@ -91,7 +91,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #7a92aa;
+  color: #51606e;
   margin-bottom: 10px;
   padding-bottom: 6px;
   border-bottom: 1px solid #edf1f5;
@@ -124,7 +124,7 @@ body {
 .etiqueta-campo {
   font-size: 0.7rem;
   font-weight: 500;
-  color: #9aafc2;
+  color: #8698a8;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 4px;
@@ -141,6 +141,18 @@ body {
   font-weight: 400;
   font-style: italic;
   font-size: 0.85rem;
+}
+
+/*Botón regresar*/
+.regresar-btn{
+  background-color: #fff;
+  color: #000;
+  position: fixed;
+  left: 2rem;
+  top: 2rem;
+  font-size: 30px;
+  padding: 14px 1.2rem;
+  border-radius: 100%;
 }
 
 @media (max-width: 520px) {
