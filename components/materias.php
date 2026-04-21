@@ -11,10 +11,10 @@ if (!isset($_SESSION['matricula'])) {
 // Obtener datos del alumno logueado
 $matricula = $_SESSION['matricula'];
 $sql_alumno = "SELECT id, nombre, apellido_paterno FROM alumnos WHERE matricula = ?";
-$stmt_alumno = $conexion->prepare($sql_alumno);
-$stmt_alumno->bind_param("s", $matricula);
-$stmt_alumno->execute();
-$resultado_alumno = $stmt_alumno->get_result();
+$consulta_alumno = $conexion->prepare($sql_alumno);
+$consulta_alumno->bind_param("s", $matricula);
+$consulta_alumno->execute();
+$resultado_alumno = $consulta_alumno->get_result();
 
 if (!$resultado_alumno || $resultado_alumno->num_rows === 0) {
     die("Error: Alumno no encontrado");
@@ -31,14 +31,14 @@ $sql_materias = "SELECT DISTINCT m.id, m.nombre, m.creditos, p.nombre as periodo
                  WHERE c.alumno_id = ?
                  ORDER BY p.id DESC, m.nombre ASC";
 
-$stmt_materias = $conexion->prepare($sql_materias);
-if (!$stmt_materias) {
+$consulta_materias = $conexion->prepare($sql_materias);
+if (!$consulta_materias) {
     die("Error al preparar consulta: " . $conexion->error);
 }
 
-$stmt_materias->bind_param("i", $alumno_id);
-$stmt_materias->execute();
-$resultado_materias = $stmt_materias->get_result();
+$consulta_materias->bind_param("i", $alumno_id);
+$consulta_materias->execute();
+$resultado_materias = $consulta_materias->get_result();
 
 if (!$resultado_materias) {
     die("Error en la consulta: " . $conexion->error);
