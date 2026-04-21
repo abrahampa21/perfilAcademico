@@ -2,8 +2,9 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-session_start();
 require_once("src/conexion.php");
+session_start();
+
 
 function validar_contraseña($contraseña)
 {
@@ -81,9 +82,9 @@ if (isset($_POST["registrar-btn"])) {
       $consulta_insert->bind_param("sssssssss", $nombre, $apellidoP, $apellidoM, $matricula, $correo, $password_encriptada, $carrera, $direccion, $numeroTel);
 
       if ($consulta_insert->execute()) {
-        echo "<script>alert('exito'); window.location.href='index.php'</script>";
+        echo "<script>alert('¡Registro exitoso del estudiante!'); window.location.href='index.php'</script>";
       } else {
-        echo "<script>alert('error'); window.location.href='index.php'</script>";
+        echo "<script>alert('Error al registrar el alumno'); window.location.href='index.php'</script>";
       }
     }
   }

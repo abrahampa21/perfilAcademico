@@ -1,10 +1,13 @@
 <?php
 require_once("src/conexion.php");
-if (!isset($_GET["matricula"]) || empty($_GET["matricula"])) {
+session_start();
+
+if (!isset($_SESSION["matricula"])) {
   header("Location: index.php");
   exit();
 }
-$matricula = $_GET["matricula"];
+
+$matricula = $_SESSION["matricula"];
 
 $consulta = $conexion->prepare("SELECT nombre, apellido_paterno FROM alumnos WHERE matricula=?");
 $consulta->bind_param("s",$matricula);
@@ -43,10 +46,10 @@ $alumno = $resultado->fetch_assoc();
         <!--Menú responsive-->
         <div class="menu" id="menu">
           <i class="fa-solid fa-address-card"
-            ><a href="components/datosGenerales.html">Datos Personales</a></i
+            ><a href="components/datosGenerales.php?matricula=<?php echo $matricula; ?>">Datos Personales</a></i
           >
           <i class="fa-solid fa-calendar-days"
-            ><a href="components/materias.html">Materias cursadas</a></i
+            ><a href="components/materias.php">Materias cursadas</a></i
           >
           <i class="fa-solid fa-pen"
             ><a href="components/calificaciones.html">Calificaciones</a></i
@@ -66,19 +69,19 @@ $alumno = $resultado->fetch_assoc();
         <h4><?php echo htmlspecialchars($alumno["nombre"] . " " . $alumno["apellido_paterno"]); ?></h4>
       </div>
       <div class="menu-opciones">
-        <a href="">
+        <a href="components/datosGenerales.php">
           <div class="opcion">
             <i class="fa-solid fa-address-card"></i>
             <h4>Datos Personales</h4>
           </div>
         </a>
-        <a href="">
+        <a href="components/materias.php">
           <div class="opcion">
             <i class="fa-solid fa-calendar-days"></i>
             <h4>Materias cursadas</h4>
           </div>
         </a>
-        <a href="">
+        <a href="components/calificaciones.html">
           <div class="opcion">
             <i class="fa-solid fa-pen"></i>
             <h4>Calificaciones</h4>
@@ -86,7 +89,7 @@ $alumno = $resultado->fetch_assoc();
         </a>
       </div>
       <div class="salir">
-        <a href="#" title="Salir" name="salir">
+        <a href="src/logout.php" title="Salir" name="salir">
           <i class="fa-solid fa-right-from-bracket"></i>
         </a>
         <h4>Salir</h4>
