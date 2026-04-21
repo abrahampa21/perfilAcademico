@@ -22,7 +22,7 @@ if (!$resultado) {
   </head>
   <body>
 
-    <a href="datosGenerales.html" class="regresar-btn"><i class="fa-solid fa-arrow-left"></i></a>
+    <a href="portal.php" class="regresar-btn"><i class="fa-solid fa-arrow-left"></i></a>
 
     <div class="contenedor">
       <div class="tarjeta-perfil">
