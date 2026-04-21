@@ -1,4 +1,20 @@
-<!doctype html>
+<?php
+require_once("src/conexion.php");
+if (!isset($_GET["matricula"]) || empty($_GET["matricula"])) {
+  header("Location: index.php");
+  exit();
+}
+$matricula = $_GET["matricula"];
+
+$consulta = $conexion->prepare("SELECT nombre, apellido_paterno FROM alumnos WHERE matricula=?");
+$consulta->bind_param("s",$matricula);
+$consulta->execute();
+$resultado = $consulta->get_result();
+$alumno = $resultado->fetch_assoc();
+
+?>
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -47,7 +63,7 @@
       </div>
       <div class="nombre-alumno">
         <i class="fa-solid fa-user-graduate" title="Ícono del alumno"></i>
-        <h4></h4>
+        <h4><?php echo htmlspecialchars($alumno["nombre"] . " " . $alumno["apellido_paterno"]); ?></h4>
       </div>
       <div class="menu-opciones">
         <a href="">

@@ -143,6 +143,15 @@ body {
   font-size: 0.85rem;
 }
 
+.academico-div .consultar-materias{
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.academico-div .consultar-materias{
+  text-decoration: underline;
+}
+
 /*Botón regresar*/
 .regresar-btn{
   background-color: #fff;
