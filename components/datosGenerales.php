@@ -38,9 +38,10 @@ function getNombreCarrera($carrera) {
   </head>
   <body>
     <!--Botón de regreso al panel-->
-    <a href="../portal.php" title="Regresar" class="regresar-btn">
+    <a href="../portal.php?matricula=<?php echo $alumno['matricula']; ?>" class="regresar-btn">
       <i class="fa-solid fa-arrow-left"></i>
     </a>
+
     <main class="contenedor">
       <!--Encabezado con avatar y nombre-->
       <div class="tarjeta-perfil">

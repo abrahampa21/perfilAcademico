@@ -43,10 +43,10 @@ $alumno = $resultado->fetch_assoc();
         <!--Menú responsive-->
         <div class="menu" id="menu">
           <i class="fa-solid fa-address-card"
-            ><a href="components/datosGenerales.html">Datos Personales</a></i
+            ><a href="components/datosGenerales.php?matricula=<?php echo $matricula; ?>">Datos Personales</a></i
           >
           <i class="fa-solid fa-calendar-days"
-            ><a href="components/materias.html">Materias cursadas</a></i
+            ><a href="components/materias.php">Materias cursadas</a></i
           >
           <i class="fa-solid fa-pen"
             ><a href="components/calificaciones.html">Calificaciones</a></i
@@ -66,19 +66,19 @@ $alumno = $resultado->fetch_assoc();
         <h4><?php echo htmlspecialchars($alumno["nombre"] . " " . $alumno["apellido_paterno"]); ?></h4>
       </div>
       <div class="menu-opciones">
-        <a href="">
+        <a href="components/datosGenerales.php?matricula=<?php echo $matricula; ?>">
           <div class="opcion">
             <i class="fa-solid fa-address-card"></i>
             <h4>Datos Personales</h4>
           </div>
         </a>
-        <a href="">
+        <a href="components/materias.php">
           <div class="opcion">
             <i class="fa-solid fa-calendar-days"></i>
             <h4>Materias cursadas</h4>
           </div>
         </a>
-        <a href="">
+        <a href="components/calificaciones.html">
           <div class="opcion">
             <i class="fa-solid fa-pen"></i>
             <h4>Calificaciones</h4>
