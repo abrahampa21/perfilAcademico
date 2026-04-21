@@ -1,3 +1,50 @@
+<?php
+session_start();
+require_once("../src/conexion.php");
+
+// Verificar que el usuario esté logueado
+if (!isset($_SESSION['matricula'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// Obtener datos del alumno logueado
+$matricula = $_SESSION['matricula'];
+$sql_alumno = "SELECT id, nombre, apellido_paterno FROM alumnos WHERE matricula = ?";
+$stmt_alumno = $conexion->prepare($sql_alumno);
+$stmt_alumno->bind_param("s", $matricula);
+$stmt_alumno->execute();
+$resultado_alumno = $stmt_alumno->get_result();
+
+if (!$resultado_alumno || $resultado_alumno->num_rows === 0) {
+    die("Error: Alumno no encontrado");
+}
+
+$alumno = $resultado_alumno->fetch_assoc();
+$alumno_id = $alumno['id'];
+
+// Obtener materias del alumno usando JOIN con calificaciones
+$sql_materias = "SELECT DISTINCT m.id, m.nombre, m.creditos, p.nombre as periodo 
+                 FROM materias m
+                 INNER JOIN calificaciones c ON m.id = c.materia_id
+                 INNER JOIN periodos p ON c.periodo_id = p.id
+                 WHERE c.alumno_id = ?
+                 ORDER BY p.id DESC, m.nombre ASC";
+
+$stmt_materias = $conexion->prepare($sql_materias);
+if (!$stmt_materias) {
+    die("Error al preparar consulta: " . $conexion->error);
+}
+
+$stmt_materias->bind_param("i", $alumno_id);
+$stmt_materias->execute();
+$resultado_materias = $stmt_materias->get_result();
+
+if (!$resultado_materias) {
+    die("Error en la consulta: " . $conexion->error);
+}
+
+?>
 <!doctype html>
 <html lang="es">
   <head>
@@ -10,7 +57,7 @@
   </head>
   <body>
 
-    <a href="portal.php" class="regresar-btn"><i class="fa-solid fa-arrow-left"></i></a>
+    <a href="../portal.php" class="regresar-btn"><i class="fa-solid fa-arrow-left"></i></a>
 
     <div class="contenedor">
       <div class="tarjeta-perfil">
@@ -20,8 +67,8 @@
             <i class="fa-solid fa-user"></i>
           </div>
           <div>
-            <div class="nombre-alumno"></div>
-            <div class="matricula-alumno"></div>
+            <div class="nombre-alumno"><?php echo htmlspecialchars($alumno['nombre'] . ' ' . $alumno['apellido_paterno']); ?></div>
+            <div class="matricula-alumno"><?php echo htmlspecialchars($matricula); ?></div>
           </div>
         </div>
 
@@ -37,6 +84,19 @@
                 </tr>
               </thead>
               <tbody>
+                <?php
+                if ($resultado_materias && $resultado_materias->num_rows > 0) {
+                    while ($materia = $resultado_materias->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($materia['nombre']) . "</td>";
+                        echo "<td>" . htmlspecialchars($materia['creditos']) . "</td>";
+                        echo "<td>" . htmlspecialchars($materia['periodo']) . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='3' style='text-align: center; padding: 20px;'>No hay materias inscritas</td></tr>";
+                }
+                ?>
               </tbody>
             </table>
           </div>
