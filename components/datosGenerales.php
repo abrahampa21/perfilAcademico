@@ -54,7 +54,7 @@ function getNombreCarrera($carrera) {
   </head>
   <body>
     <!--Botón de regreso al panel-->
-    <a href="../portal.php?matricula=<?php echo $alumno['matricula']; ?>" class="regresar-btn">
+    <a href="../portal.php" class="regresar-btn">
       <i class="fa-solid fa-arrow-left"></i>
     </a>
 

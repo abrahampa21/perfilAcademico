@@ -1,10 +1,13 @@
 <?php
 require_once("src/conexion.php");
-if (!isset($_GET["matricula"]) || empty($_GET["matricula"])) {
+session_start();
+
+if (!isset($_SESSION["matricula"])) {
   header("Location: index.php");
   exit();
 }
-$matricula = $_GET["matricula"];
+
+$matricula = $_SESSION["matricula"];
 
 $consulta = $conexion->prepare("SELECT nombre, apellido_paterno FROM alumnos WHERE matricula=?");
 $consulta->bind_param("s",$matricula);
@@ -66,7 +69,7 @@ $alumno = $resultado->fetch_assoc();
         <h4><?php echo htmlspecialchars($alumno["nombre"] . " " . $alumno["apellido_paterno"]); ?></h4>
       </div>
       <div class="menu-opciones">
-        <a href="components/datosGenerales.php?matricula=<?php echo $matricula; ?>">
+        <a href="components/datosGenerales.php">
           <div class="opcion">
             <i class="fa-solid fa-address-card"></i>
             <h4>Datos Personales</h4>
@@ -86,7 +89,7 @@ $alumno = $resultado->fetch_assoc();
         </a>
       </div>
       <div class="salir">
-        <a href="#" title="Salir" name="salir">
+        <a href="../src/logout.php" title="Salir" name="salir">
           <i class="fa-solid fa-right-from-bracket"></i>
         </a>
         <h4>Salir</h4>
