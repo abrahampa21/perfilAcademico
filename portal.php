@@ -89,7 +89,7 @@ $alumno = $resultado->fetch_assoc();
         </a>
       </div>
       <div class="salir">
-        <a href="../src/logout.php" title="Salir" name="salir">
+        <a href="src/logout.php" title="Salir" name="salir">
           <i class="fa-solid fa-right-from-bracket"></i>
         </a>
         <h4>Salir</h4>
