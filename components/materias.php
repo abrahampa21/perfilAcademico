@@ -1,15 +1,4 @@
-<!-- <?php
-require_once("../src/conexion.php");
 
-//Mostrar vendedores, se usa inner join para enlazarlo con la tabla periodo
-$sql = "SELECT idVendedor, nombre, apellidoP FROM vendedor";
-$resultado = $conexion->query($sql);
-
-if (!$resultado) {
-    die("Error en la consulta: " . $conexion->error);
-}
-
-?>-->
 <!doctype html>
 <html lang="es">
   <head>
