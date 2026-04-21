@@ -1,9 +1,25 @@
 <?php
+session_start();
 require_once("../src/conexion.php");
 
-// Obtener datos de los alumnos de la tabla alumnos
-$sql = "SELECT id, nombre, apellido_paterno, apellido_materno, matricula, correo, carrera, direccion, celular FROM alumnos";
-$resultado = $conexion->query($sql);
+// Verificar que el usuario esté logueado
+if (!isset($_SESSION['matricula'])) {
+    header("Location: ../index.php");
+    exit();
+}
+
+// Obtener datos del alumno logueado usando la matrícula de la sesión
+$matricula = $_SESSION['matricula'];
+$sql = "SELECT id, nombre, apellido_paterno, apellido_materno, matricula, correo, carrera, direccion, celular FROM alumnos WHERE matricula = ?";
+$stmt = $conexion->prepare($sql);
+
+if (!$stmt) {
+    die("Error al preparar consulta: " . $conexion->error);
+}
+
+$stmt->bind_param("s", $matricula);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
 if (!$resultado) {
     die("Error en la consulta: " . $conexion->error);
