@@ -1,5 +1,105 @@
+<?php
+require_once("../src/conexion.php");
+session_start();
+
+if (!isset($_SESSION["matricula"])) {
+  header("Location: ../index.php");
+  exit();
+}
+
+$matricula = $_SESSION["matricula"];
+
+// Obtener datos del alumno
+$consulta_alumno = $conexion->prepare("
+  SELECT id, nombre, apellido_paterno, apellido_materno, carrera
+  FROM alumnos
+  WHERE matricula = ?
+");
+$consulta_alumno->bind_param("s", $matricula);
+$consulta_alumno->execute();
+$resultado_alumno = $consulta_alumno->get_result();
+$alumno = $resultado_alumno->fetch_assoc();
+$alumno_id = $alumno["id"];
+
+// Obtener todos los periodos
+$consulta_periodos = $conexion->query("SELECT id, nombre FROM periodos ORDER BY id");
+$periodos = [];
+while ($p = $consulta_periodos->fetch_assoc()) {
+  $periodos[] = $p;
+}
+
+// Periodo seleccionado (default: primer periodo disponible)
+$periodo_seleccionado = isset($_GET["periodo"]) ? (int)$_GET["periodo"] : (count($periodos) > 0 ? $periodos[0]["id"] : 1);
+
+// Nombre del periodo seleccionado
+$nombre_periodo = "";
+foreach ($periodos as $p) {
+  if ($p["id"] == $periodo_seleccionado) {
+    $nombre_periodo = $p["nombre"];
+    break;
+  }
+}
+
+// Obtener calificaciones del alumno en el periodo seleccionado
+// Se obtienen las materias + calificaciones; si el alumno no tiene calificación, la materia
+// no aparece. Solo se muestran materias donde el alumno tiene al menos un registro en ese periodo.
+$consulta_califs = $conexion->prepare("
+  SELECT
+    m.id AS materia_id,
+    m.nombre AS materia,
+    m.creditos,
+    c.calificacion
+  FROM calificaciones c
+  JOIN materias m ON c.materia_id = m.id
+  WHERE c.alumno_id = ? AND c.periodo_id = ?
+  ORDER BY m.nombre
+");
+$consulta_califs->bind_param("ii", $alumno_id, $periodo_seleccionado);
+$consulta_califs->execute();
+$resultado_califs = $consulta_califs->get_result();
+
+$calificaciones = [];
+while ($row = $resultado_califs->fetch_assoc()) {
+  $calificaciones[] = $row;
+}
+
+// ─── Estadísticas ───────────────────────────────────────────────────────────
+// En la BD actual hay un registro por materia/periodo (calificación final).
+// Se trata como calificación final; parciales no están en el esquema actual.
+// Se calculan: promedio general, aprobadas (>= 6), en riesgo (>= 6 pero < 7),
+// reprobadas (< 6), créditos acreditados (materias aprobadas).
+
+$total_materias   = count($calificaciones);
+$suma_promedios   = 0;
+$aprobadas        = 0;
+$creditos_acred   = 0;
+
+foreach ($calificaciones as $c) {
+  $cal = (float)$c["calificacion"];
+  $suma_promedios += $cal;
+  if ($cal >= 6) {
+    $aprobadas++;
+    $creditos_acred += (int)$c["creditos"];
+  }
+}
+
+$promedio_general = $total_materias > 0
+  ? round($suma_promedios / $total_materias, 1)
+  : 0;
+
+// ─── Funciones auxiliares (inline) ──────────────────────────────────────────
+function estado_badge(float $cal): string {
+  if ($cal >= 7) {
+    return '<span class="badge badge-success">Aprobada</span>';
+  } elseif ($cal >= 6) {
+    return '<span class="badge badge-warning">En Riesgo</span>';
+  } else {
+    return '<span class="badge badge-danger">No Aprobada</span>';
+  }
+}
+?>
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,147 +110,145 @@
       crossorigin="anonymous"
     ></script>
     <title>Calificaciones</title>
-    
+    <style>
+      .regresar-btn {
+        background-color: #fff;
+        color: #000;
+        position: fixed;
+        left: 2rem;
+        top: 2rem;
+        font-size: 30px;
+        padding: 14px 1.2rem;
+        border-radius: 100%;
+        text-decoration: none;
+        z-index: 200;
+      }
+      .sidebar {
+        padding-top: 2rem;
+        top: 5rem;
+      }
+    </style>
   </head>
   <body>
-    
+
+    <!-- Botón de regreso al portal -->
+    <a href="../portal.php" class="regresar-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
     <!-- Main Content -->
     <main class="main-container">
-      <!-- Sidebar
-      <aside class="sidebar">
-        <div class="student-card">
-          <h3>Información del Estudiante</h3>
-          <div class="student-details">
-            <p><strong>Matrícula:</strong> <span>2021001234</span></p>
-            <p><strong>Nombre:</strong> <span>Juan Pérez</span></p>
-            <p><strong>Carrera:</strong> <span>Ingeniería en Sistemas</span></p>
-            <p><strong>Semestre:</strong> <span>6º</span></p>
-            <p><strong>Promedio:</strong> <span class="gpa">8.5</span></p>
-          </div>
-        </div> -->
 
+      <!-- Sidebar / Filtros -->
+      <aside class="sidebar" id="sidebar">
+
+        <!-- Filtro por periodo -->
         <div class="filters">
-          <h3>Filtros</h3>
+          <h3><i class="fa-solid fa-filter"></i> Filtros</h3>
           <div class="filter-group">
-            <label for="semestre">Cuatrimestre:</label>
-            <select id="semestre">
-              <option value="1">1º Semestre</option>
-              <option value="2">2º Semestre</option>
-              <option value="3">3º Semestre</option>
-              <option value="4">4º Semestre</option>
-              <option value="5">5º Semestre</option>
-              <option value="6" selected>6º Semestre</option>
+            <label for="periodo">Periodo:</label>
+            <select id="periodo" onchange="filtrarPeriodo(this.value)">
+              <?php foreach ($periodos as $p): ?>
+                <option
+                  value="<?php echo $p["id"]; ?>"
+                  <?php echo ($p["id"] == $periodo_seleccionado) ? "selected" : ""; ?>
+                >
+                  <?php echo htmlspecialchars($p["nombre"]); ?>
+                </option>
+              <?php endforeach; ?>
             </select>
           </div>
         </div>
+
       </aside>
 
       <!-- Content Section -->
       <section class="content">
-        <!-- Title -->
+
+        <!-- Título + barra de búsqueda -->
         <div class="section-header">
-          <h2>Mis Calificaciones</h2>
+          <div>
+            <h2>Mis Calificaciones</h2>
+            <p class="periodo-label">
+              <i class="fa-solid fa-calendar-days"></i>
+              <?php echo htmlspecialchars($nombre_periodo); ?>
+            </p>
+          </div>
           <div class="search-bar">
-            <input type="text" placeholder="Buscar asignatura..." />
+            <input
+              type="text"
+              id="busqueda"
+              placeholder="Buscar materia..."
+              oninput="filtrarTabla(this.value)"
+            />
             <button><i class="fas fa-search"></i></button>
           </div>
         </div>
 
-        <!-- Grades Table -->
+        <!-- Tabla de calificaciones -->
         <div class="grades-container">
-          <table class="grades-table">
+          <?php if (empty($calificaciones)): ?>
+            <div class="no-datos">
+              <i class="fa-solid fa-circle-info"></i>
+              <p>No hay calificaciones registradas para este periodo.</p>
+            </div>
+          <?php else: ?>
+          <table class="grades-table" id="tabla-calificaciones">
             <thead>
               <tr>
                 <th>Materia</th>
-               
-            
-                <th>Parcial 1</th>
-                <th>Parcial 2</th>
-                <th>Parcial 3</th>
-                <th>Final</th>
-                <th>Promedio</th>
+                <th>Calificación</th>
                 <th>Estado</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="m">Programación Avanzada</td>
-           
-             
-                <td>8.5</td>
-                <td>9.0</td>
-                <td>8.8</td>
-                <td>9.2</td>
-                <td class="gpa-cell">8.9</td>
-                <td><span class="badge badge-success">Aprobada</span></td>
+              <?php foreach ($calificaciones as $c):
+                $cal = (float)$c["calificacion"];
+              ?>
+              <tr class="fila-materia">
+                <td class="materia-nombre"><?php echo htmlspecialchars($c["materia"]); ?></td>
+                <td class="gpa-cell"><?php echo number_format($cal, 1); ?></td>
+                <td><?php echo estado_badge($cal); ?></td>
               </tr>
-              <tr>
-                <td>Bases de Datos II</td>
-               
-             
-                <td>9.0</td>
-                <td>8.7</td>
-                <td>9.1</td>
-                <td>8.9</td>
-                <td class="gpa-cell">8.9</td>
-                <td><span class="badge badge-success">Aprobada</span></td>
-              </tr>
-              <tr>
-                <td>Redes Computacionales</td>
-              
-        
-                <td>7.5</td>
-                <td>7.8</td>
-                <td>8.0</td>
-                <td>8.2</td>
-                <td class="gpa-cell">7.9</td>
-                <td><span class="badge badge-success">Aprobada</span></td>
-              </tr>
-              <tr>
-                <td>Seguridad Informática</td>
-           
-             
-                <td>6.0</td>
-                <td>5.8</td>
-                <td>6.5</td>
-                <td>-</td>
-                <td class="gpa-cell">6.1</td>
-                <td><span class="badge badge-warning">En Riesgo</span></td>
-              </tr>
-              <tr>
-                <td>Ingeniería de Software</td>
-         
-               
-                <td>8.2</td>
-                <td>8.5</td>
-                <td>8.7</td>
-                <td>8.8</td>
-                <td class="gpa-cell">8.6</td>
-                <td><span class="badge badge-success">Aprobada</span></td>
-              </tr>
+              <?php endforeach; ?>
             </tbody>
           </table>
+          <?php endif; ?>
         </div>
 
-        <!-- Statistics -->
+        <!-- Estadísticas -->
         <div class="statistics">
           <div class="stat-card">
             <h4>Asignaturas Aprobadas</h4>
-            <p class="stat-number">4</p>
-            <span class="stat-label">de 5</span>
+            <p class="stat-number <?php echo ($aprobadas < $total_materias) ? 'warning' : ''; ?>">
+              <?php echo $aprobadas; ?>
+            </p>
+            <span class="stat-label">de <?php echo $total_materias; ?></span>
           </div>
           <div class="stat-card">
             <h4>Promedio General</h4>
-            <p class="stat-number">8.5</p>
+            <p class="stat-number <?php echo ($promedio_general < 6) ? 'warning' : ''; ?>">
+              <?php echo $promedio_general; ?>
+            </p>
             <span class="stat-label">GPA</span>
           </div>
-          
           <div class="stat-card">
-            <h4>Acreditadas</h4>
-            <p class="stat-number">12</p>
+            <h4>Créditos Acreditados</h4>
+            <p class="stat-number"><?php echo $creditos_acred; ?></p>
             <span class="stat-label">Créditos</span>
           </div>
         </div>
+
+        <!-- Leyenda de estados -->
+        <div class="leyenda">
+          <span class="badge badge-success">Aprobada</span>
+          <small>Calificación ≥ 7</small>
+          <span class="badge badge-warning" style="margin-left:1rem;">En Riesgo</span>
+          <small>Calificación entre 6 y 6.9</small>
+          <span class="badge badge-danger" style="margin-left:1rem;">No Aprobada</span>
+          <small>Calificación &lt; 6</small>
+        </div>
+
       </section>
     </main>
 
@@ -160,5 +258,22 @@
         <p>&copy; 2024 Portal Académico ITES. Todos los derechos reservados.</p>
       </div>
     </footer>
+
+    <script>
+      // Redirige al periodo seleccionado
+      function filtrarPeriodo(periodoId) {
+        window.location.href = "calificaciones.php?periodo=" + periodoId;
+      }
+
+      // Filtra filas de la tabla según texto buscado
+      function filtrarTabla(texto) {
+        const filas = document.querySelectorAll(".fila-materia");
+        const filtro = texto.toLowerCase().trim();
+        filas.forEach(function (fila) {
+          const nombre = fila.querySelector(".materia-nombre").textContent.toLowerCase();
+          fila.style.display = nombre.includes(filtro) ? "" : "none";
+        });
+      }
+    </script>
   </body>
 </html>

@@ -558,3 +558,56 @@ body {
     gap: 1.5rem;
   }
 }
+
+/* ── Extras añadidos para datos dinámicos ── */
+
+/* Etiqueta del periodo debajo del título */
+.periodo-label {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.85;
+}
+
+/* Mensaje cuando no hay calificaciones */
+.no-datos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  gap: 1rem;
+  color: #3e5f7d;
+  background: #ffffff;
+}
+
+.no-datos i {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+.no-datos p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Leyenda de estados */
+.leyenda {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+/* Mostrar tarjeta del alumno (era comentada en el HTML original) */
+.student-card {
+  display: block !important;
+}
