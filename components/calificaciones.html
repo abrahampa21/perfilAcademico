@@ -13,28 +13,7 @@
     
   </head>
   <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="header-container">
-        <div class="logo">
-          <img src="../img/ites.png" alt="Logo ITES" />
-          <h1>Portal Académico</h1>
-        </div>
-        <nav class="nav-header">
-          <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#calificaciones" class="active">Calificaciones</a></li>
-            <li><a href="#horario">Horario</a></li>
-            <li><a href="#perfil">Mi Perfil</a></li>
-          </ul>
-        </nav>
-        <div class="user-info">
-          <i class="fas fa-user-circle"></i>
-          <span>Mi Cuenta</span>
-        </div>
-      </div>
-    </header>
-
+    
     <!-- Main Content -->
     <main class="main-container">
       <!-- Sidebar
@@ -53,24 +32,14 @@
         <div class="filters">
           <h3>Filtros</h3>
           <div class="filter-group">
-            <label for="semestre">Semestre:</label>
+            <label for="semestre">Cuatrimestre:</label>
             <select id="semestre">
-              <option value="">Todos</option>
               <option value="1">1º Semestre</option>
               <option value="2">2º Semestre</option>
               <option value="3">3º Semestre</option>
               <option value="4">4º Semestre</option>
               <option value="5">5º Semestre</option>
               <option value="6" selected>6º Semestre</option>
-            </select>
-          </div>
-          <div class="filter-group">
-            <label for="estado">Estado:</label>
-            <select id="estado">
-              <option value="">Todas</option>
-              <option value="aprobada">Aprobadas</option>
-              <option value="reprobada">Reprobadas</option>
-              <option value="curso">En Curso</option>
             </select>
           </div>
         </div>
@@ -92,9 +61,9 @@
           <table class="grades-table">
             <thead>
               <tr>
-                <th>Asignatura</th>
-                <th>Código</th>
-                <th>Profesor</th>
+                <th>Materia</th>
+               
+            
                 <th>Parcial 1</th>
                 <th>Parcial 2</th>
                 <th>Parcial 3</th>
@@ -105,9 +74,9 @@
             </thead>
             <tbody>
               <tr>
-                <td>Programación Avanzada</td>
-                <td>ISI-301</td>
-                <td>Dr. Carlos López</td>
+                <td class="m">Programación Avanzada</td>
+           
+             
                 <td>8.5</td>
                 <td>9.0</td>
                 <td>8.8</td>
@@ -117,8 +86,8 @@
               </tr>
               <tr>
                 <td>Bases de Datos II</td>
-                <td>ISI-305</td>
-                <td>Ing. María García</td>
+               
+             
                 <td>9.0</td>
                 <td>8.7</td>
                 <td>9.1</td>
@@ -128,8 +97,8 @@
               </tr>
               <tr>
                 <td>Redes Computacionales</td>
-                <td>ISI-309</td>
-                <td>Ing. Roberto Martínez</td>
+              
+        
                 <td>7.5</td>
                 <td>7.8</td>
                 <td>8.0</td>
@@ -139,8 +108,8 @@
               </tr>
               <tr>
                 <td>Seguridad Informática</td>
-                <td>ISI-310</td>
-                <td>Ing. Ana Sánchez</td>
+           
+             
                 <td>6.0</td>
                 <td>5.8</td>
                 <td>6.5</td>
@@ -150,8 +119,8 @@
               </tr>
               <tr>
                 <td>Ingeniería de Software</td>
-                <td>ISI-311</td>
-                <td>Dra. Laura Fernández</td>
+         
+               
                 <td>8.2</td>
                 <td>8.5</td>
                 <td>8.7</td>
@@ -175,11 +144,7 @@
             <p class="stat-number">8.5</p>
             <span class="stat-label">GPA</span>
           </div>
-          <div class="stat-card">
-            <h4>En Riesgo</h4>
-            <p class="stat-number warning">1</p>
-            <span class="stat-label">Asignatura</span>
-          </div>
+          
           <div class="stat-card">
             <h4>Acreditadas</h4>
             <p class="stat-number">12</p>
@@ -193,11 +158,6 @@
     <footer class="footer">
       <div class="footer-content">
         <p>&copy; 2024 Portal Académico ITES. Todos los derechos reservados.</p>
-        <ul class="footer-links">
-          <li><a href="#ayuda">Ayuda</a></li>
-          <li><a href="#privacidad">Privacidad</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
       </div>
     </footer>
   </body>
