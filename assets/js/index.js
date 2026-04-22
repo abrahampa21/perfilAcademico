@@ -59,3 +59,4 @@ function validarContraseña(input, mensaje) {
 
 validarContraseña(contraseñaRecuperar, document.querySelector("#recuperar-contraseña .validacion-contraseña"));
 validarContraseña(contraseñaRegistro, document.querySelector("#registro .validacion-contraseña"));
+

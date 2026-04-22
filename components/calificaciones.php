@@ -120,7 +120,6 @@ function estado_badge(float $cal): string {
 
     <!-- Main Content -->
     <main class="main-container">
-
       <!-- Sidebar / Filtros -->
       <aside class="sidebar" id="sidebar">
         <!-- Filtro por periodo -->
