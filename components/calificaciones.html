@@ -202,3 +202,168 @@
     </footer>
   </body>
 </html>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../img/ites.png" />
+    <link rel="stylesheet" href="../assets/css/calificaciones.css" />
+    <script
+      src="https://kit.fontawesome.com/e522357059.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Calificaciones</title>
+    
+  </head>
+  <body>
+    
+    <!-- Main Content -->
+    <main class="main-container">
+      <!-- Sidebar
+      <aside class="sidebar">
+        <div class="student-card">
+          <h3>Información del Estudiante</h3>
+          <div class="student-details">
+            <p><strong>Matrícula:</strong> <span>2021001234</span></p>
+            <p><strong>Nombre:</strong> <span>Juan Pérez</span></p>
+            <p><strong>Carrera:</strong> <span>Ingeniería en Sistemas</span></p>
+            <p><strong>Semestre:</strong> <span>6º</span></p>
+            <p><strong>Promedio:</strong> <span class="gpa">8.5</span></p>
+          </div>
+        </div> -->
+
+        <div class="filters">
+          <h3>Filtros</h3>
+          <div class="filter-group">
+            <label for="semestre">Cuatrimestre:</label>
+            <select id="semestre">
+              <option value="1">1º Semestre</option>
+              <option value="2">2º Semestre</option>
+              <option value="3">3º Semestre</option>
+              <option value="4">4º Semestre</option>
+              <option value="5">5º Semestre</option>
+              <option value="6" selected>6º Semestre</option>
+            </select>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content Section -->
+      <section class="content">
+        <!-- Title -->
+        <div class="section-header">
+          <h2>Mis Calificaciones</h2>
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar asignatura..." />
+            <button><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+
+        <!-- Grades Table -->
+        <div class="grades-container">
+          <table class="grades-table">
+            <thead>
+              <tr>
+                <th>Materia</th>
+               
+            
+                <th>Parcial 1</th>
+                <th>Parcial 2</th>
+                <th>Parcial 3</th>
+                <th>Final</th>
+                <th>Promedio</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="m">Programación Avanzada</td>
+           
+             
+                <td>8.5</td>
+                <td>9.0</td>
+                <td>8.8</td>
+                <td>9.2</td>
+                <td class="gpa-cell">8.9</td>
+                <td><span class="badge badge-success">Aprobada</span></td>
+              </tr>
+              <tr>
+                <td>Bases de Datos II</td>
+               
+             
+                <td>9.0</td>
+                <td>8.7</td>
+                <td>9.1</td>
+                <td>8.9</td>
+                <td class="gpa-cell">8.9</td>
+                <td><span class="badge badge-success">Aprobada</span></td>
+              </tr>
+              <tr>
+                <td>Redes Computacionales</td>
+              
+        
+                <td>7.5</td>
+                <td>7.8</td>
+                <td>8.0</td>
+                <td>8.2</td>
+                <td class="gpa-cell">7.9</td>
+                <td><span class="badge badge-success">Aprobada</span></td>
+              </tr>
+              <tr>
+                <td>Seguridad Informática</td>
+           
+             
+                <td>6.0</td>
+                <td>5.8</td>
+                <td>6.5</td>
+                <td>-</td>
+                <td class="gpa-cell">6.1</td>
+                <td><span class="badge badge-warning">En Riesgo</span></td>
+              </tr>
+              <tr>
+                <td>Ingeniería de Software</td>
+         
+               
+                <td>8.2</td>
+                <td>8.5</td>
+                <td>8.7</td>
+                <td>8.8</td>
+                <td class="gpa-cell">8.6</td>
+                <td><span class="badge badge-success">Aprobada</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Statistics -->
+        <div class="statistics">
+          <div class="stat-card">
+            <h4>Asignaturas Aprobadas</h4>
+            <p class="stat-number">4</p>
+            <span class="stat-label">de 5</span>
+          </div>
+          <div class="stat-card">
+            <h4>Promedio General</h4>
+            <p class="stat-number">8.5</p>
+            <span class="stat-label">GPA</span>
+          </div>
+          
+          <div class="stat-card">
+            <h4>Acreditadas</h4>
+            <p class="stat-number">12</p>
+            <span class="stat-label">Créditos</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 Portal Académico ITES. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </body>
+</html>
