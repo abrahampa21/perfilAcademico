@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
-/* Reset global */
 * {
   margin: 0;
   padding: 0;
@@ -160,7 +159,6 @@ nav {
   color: #3e5f7d;
 }
 
-/* --- MENÚ LATERAL --- */
 aside.menu-lateral {
   width: 250px;
   background-color: #ffffff;
@@ -284,7 +282,6 @@ aside.menu-lateral {
   font-weight: 500;
 }
 
-/* --- CONTENIDO PRINCIPAL --- */
 main {
   flex: 1;
   padding: 2rem;
@@ -328,7 +325,6 @@ main {
   text-align: justify;
 }
 
-/* --- MEDIA QUERIES --- */
 @media (max-width: 1024px) {
   nav {
     padding: 1rem 1.5rem;

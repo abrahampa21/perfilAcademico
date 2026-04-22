@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
 
-/* Reset global */
 * {
   margin: 0;
   padding: 0;
@@ -18,7 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-/* --- HEADER --- */
 .header {
   width: 100%;
   background-color: #ffffff;
@@ -54,7 +52,7 @@ body {
 
 .logo h1 {
   font-size: 1.1rem;
-  color: #0f2744;
+  color: #fff;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -118,7 +116,6 @@ body {
   font-size: 1.3rem;
 }
 
-/* --- MAIN CONTAINER --- */
 .main-container {
   flex: 1;
   display: flex;
@@ -126,19 +123,20 @@ body {
   min-height: calc(100dvh - 68px);
 }
 
-/* --- SIDEBAR --- */
-.sidebar {
-  width: 250px;
-  background-color: #ffffff;
-  padding: 2rem 1.5rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  position: sticky;
-  top: 68px;
-  height: fit-content;
+.regresar-btn {
+  background-color: #fff;
+  color: #000;
+  position: fixed;
+  left: 2rem;
+  top: 2rem;
+  font-size: 30px;
+  padding: 14px 1.2rem;
+  border-radius: 100%;
+  text-decoration: none;
+  z-index: 200;
 }
+
+
 
 .student-card {
   background-color: #f7f9fc;
@@ -190,7 +188,10 @@ body {
 .filters {
   background-color: #f7f9fc;
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 2.5rem 2rem;
+  border-radius: 10px;
+  position: sticky;
+  top: 120px;
 }
 
 .filters h3 {
@@ -233,7 +234,6 @@ body {
   outline: none;
 }
 
-/* --- CONTENT SECTION --- */
 .content {
   flex: 1;
   padding: 2rem;
@@ -252,7 +252,7 @@ body {
 
 .section-header h2 {
   font-size: 1.8rem;
-  color: #0f2744;
+  color: #fff;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -293,7 +293,6 @@ body {
   color: #3e5f7d;
 }
 
-/* --- GRADES TABLE --- */
 .grades-container {
   background-color: #ffffff;
   border-radius: 12px;
@@ -377,7 +376,6 @@ body {
   color: #721c24;
 }
 
-/* --- STATISTICS --- */
 .statistics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -391,7 +389,9 @@ body {
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-top: 4px solid #3e5f7d;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 }
 
 .stat-card:hover {
@@ -425,50 +425,6 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* --- FOOTER --- */
-.footer {
-  width: 100%;
-  background-color: #ffffff;
-  border-top: 1px solid #edf1f5;
-  margin-top: auto;
-}
-
-.footer-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-}
-
-.footer-content p {
-  font-size: 0.9rem;
-  color: #1e3354;
-  
-}
-
-.footer-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: #0f2744;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-
-.footer-links a:hover {
-  color: #3e5f7d;
-}
-
-/* --- MEDIA QUERIES --- */
 @media (max-width: 1024px) {
   .header-container {
     padding: 1rem 1.5rem;
@@ -547,21 +503,8 @@ body {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-
-  .footer-content {
-    padding: 1.5rem;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-links {
-    gap: 1.5rem;
-  }
 }
 
-/* ── Extras añadidos para datos dinámicos ── */
-
-/* Etiqueta del periodo debajo del título */
 .periodo-label {
   font-size: 0.9rem;
   color: #ffffff;
@@ -607,7 +550,7 @@ body {
   font-size: 0.85rem;
 }
 
-/* Mostrar tarjeta del alumno (era comentada en el HTML original) */
+/* Mostrar tarjeta del alumno*/
 .student-card {
   display: block !important;
 }

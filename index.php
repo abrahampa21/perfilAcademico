@@ -65,7 +65,7 @@ if (isset($_POST["registrar-btn"])) {
   $numeroTel = $_POST['numero-telefonico'];
 
   if (!validar_contraseña($password)) {
-    echo "<script>alert('¡Registro exitoso del estudiante!'); window.location.href='index.php'</script>";
+        echo "<script>alert('Contraseña inválida. Debe tener mínimo 10 caracteres, una letra y un carácter especial.')</script>";
   } else {
     $password_encriptada = sha1($password);
 

@@ -9,7 +9,7 @@ if (!isset($_SESSION["matricula"])) {
 
 $matricula = $_SESSION["matricula"];
 
-// Obtener datos del alumno
+//Obtener datos del alumno
 $consulta_alumno = $conexion->prepare("
   SELECT id, nombre, apellido_paterno, apellido_materno, carrera
   FROM alumnos
@@ -21,17 +21,17 @@ $resultado_alumno = $consulta_alumno->get_result();
 $alumno = $resultado_alumno->fetch_assoc();
 $alumno_id = $alumno["id"];
 
-// Obtener todos los periodos
+//Obbtener todos los periodos
 $consulta_periodos = $conexion->query("SELECT id, nombre FROM periodos ORDER BY id");
 $periodos = [];
 while ($p = $consulta_periodos->fetch_assoc()) {
   $periodos[] = $p;
 }
 
-// Periodo seleccionado (default: primer periodo disponible)
+//Periodo seleccionado (default: primer periodo disponible)
 $periodo_seleccionado = isset($_GET["periodo"]) ? (int)$_GET["periodo"] : (count($periodos) > 0 ? $periodos[0]["id"] : 1);
 
-// Nombre del periodo seleccionado
+//Nombre del periodo seleccionado
 $nombre_periodo = "";
 foreach ($periodos as $p) {
   if ($p["id"] == $periodo_seleccionado) {
@@ -63,7 +63,7 @@ while ($row = $resultado_califs->fetch_assoc()) {
   $calificaciones[] = $row;
 }
 
-// ─── Estadísticas ───────────────────────────────────────────────────────────
+// Estadísticas 
 // En la BD actual hay un registro por materia/periodo (calificación final).
 // Se trata como calificación final; parciales no están en el esquema actual.
 // Se calculan: promedio general, aprobadas (>= 6), en riesgo (>= 6 pero < 7),
@@ -87,7 +87,7 @@ $promedio_general = $total_materias > 0
   ? round($suma_promedios / $total_materias, 1)
   : 0;
 
-// ─── Funciones auxiliares (inline) ──────────────────────────────────────────
+// Funciones auxiliares 
 function estado_badge(float $cal): string {
   if ($cal >= 7) {
     return '<span class="badge badge-success">Aprobada</span>';
@@ -110,24 +110,6 @@ function estado_badge(float $cal): string {
       crossorigin="anonymous"
     ></script>
     <title>Calificaciones</title>
-    <style>
-      .regresar-btn {
-        background-color: #fff;
-        color: #000;
-        position: fixed;
-        left: 2rem;
-        top: 2rem;
-        font-size: 30px;
-        padding: 14px 1.2rem;
-        border-radius: 100%;
-        text-decoration: none;
-        z-index: 200;
-      }
-      .sidebar {
-        padding-top: 2rem;
-        top: 5rem;
-      }
-    </style>
   </head>
   <body>
 
@@ -141,7 +123,6 @@ function estado_badge(float $cal): string {
 
       <!-- Sidebar / Filtros -->
       <aside class="sidebar" id="sidebar">
-
         <!-- Filtro por periodo -->
         <div class="filters">
           <h3><i class="fa-solid fa-filter"></i> Filtros</h3>
@@ -252,12 +233,6 @@ function estado_badge(float $cal): string {
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <p>&copy; 2024 Portal Académico ITES. Todos los derechos reservados.</p>
-      </div>
-    </footer>
 
     <script>
       // Redirige al periodo seleccionado
