@@ -52,7 +52,7 @@ $alumno = $resultado->fetch_assoc();
             ><a href="components/materias.php">Materias cursadas</a></i
           >
           <i class="fa-solid fa-pen"
-            ><a href="components/calificaciones.html">Calificaciones</a></i
+            ><a href="components/calificaciones.php">Calificaciones</a></i
           >
         </div>
       </nav>
@@ -81,7 +81,7 @@ $alumno = $resultado->fetch_assoc();
             <h4>Materias cursadas</h4>
           </div>
         </a>
-        <a href="components/calificaciones.html">
+        <a href="components/calificaciones.php">
           <div class="opcion">
             <i class="fa-solid fa-pen"></i>
             <h4>Calificaciones</h4>
