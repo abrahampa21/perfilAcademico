@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <?php
 session_start();
 require_once("../src/conexion.php");
@@ -48,7 +45,7 @@ if (!$resultado_materias) {
 }
 
 ?>
->>>>>>> 735b2a6c4fb9f571aa3ff515071d0857b8d04fb2
+
 <!doctype html>
 <html lang="es">
   <head>
