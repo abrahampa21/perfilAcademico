@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-04-2026 a las 00:31:39
+-- Tiempo de generación: 21-04-2026 a las 17:36:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,13 +31,13 @@ CREATE TABLE `alumnos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido_paterno` varchar(50) NOT NULL,
-  `apellido_materno` varchar(50) DEFAULT NULL,
+  `apellido_materno` varchar(50) NOT NULL,
   `matricula` varchar(20) NOT NULL,
   `correo` varchar(100) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
   `carrera` enum('programacion','sistemas-computacionales','derecho','contaduria','administracion','artes-culinarias') NOT NULL,
-  `direccion` text DEFAULT NULL,
-  `celular` varchar(15) DEFAULT NULL
+  `direccion` text NOT NULL,
+  `celular` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -60,10 +60,10 @@ INSERT INTO `alumnos` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `
 
 CREATE TABLE `calificaciones` (
   `id` int(11) NOT NULL,
-  `alumno_id` int(11) DEFAULT NULL,
-  `materia_id` int(11) DEFAULT NULL,
-  `periodo_id` int(11) DEFAULT NULL,
-  `calificacion` decimal(4,2) DEFAULT NULL
+  `alumno_id` int(11) NOT NULL,
+  `materia_id` int(11) NOT NULL,
+  `periodo_id` int(11) NOT NULL,
+  `calificacion` decimal(4,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -132,9 +132,15 @@ CREATE TABLE `periodos` (
 --
 
 INSERT INTO `periodos` (`id`, `nombre`) VALUES
-(1, 'Enero-Abril'),
-(2, 'Mayo-Agosto'),
-(3, 'Septiembre-Diciembre');
+(1, 'Enero-Abril PRIMER AÑO'),
+(2, 'Mayo-Agosto PRIMER AÑO'),
+(3, 'Septiembre-Diciembre PRIMER AÑO'),
+(4, 'Enero-Abril SEGUNDO AÑO'),
+(5, 'Mayo-Agosto SEGUNDO AÑO'),
+(6, 'Septiembre-Diciembre SEGUNDO AÑO'),
+(7, 'Enero-Abril TERCER AÑO'),
+(8, 'Mayo-Agosto TERCER AÑO'),
+(9, 'Septiembre-Diciembre TERCER AÑO');
 
 --
 -- Índices para tablas volcadas
@@ -195,7 +201,7 @@ ALTER TABLE `materias`
 -- AUTO_INCREMENT de la tabla `periodos`
 --
 ALTER TABLE `periodos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
